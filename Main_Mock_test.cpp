@@ -13,41 +13,24 @@ class MockFigura: public Figura
 public:
 	
 MOCK_METHOD0(obliczPola, double());
-	//MOCK_METHOD1(dodajFigure,  void(Figura *wsk));
-	//MOCK_METHOD0(Pole, double());
-	//MOCK_METHOD0(Obwod, double());
-//virtual double obliczPola(){}
-//MOCK_METHOD0(dodajFigure, void(MockFigura*));
 virtual void dodajFigure(Figura *wsk){}
-virtual double Pole() {}
-//MOCK_METHOD0(Pole, double());
+MOCK_METHOD0(Pole, double());
 virtual double Obwod(){}
 virtual void Drukuj(){}
 virtual ~MockFigura(){std::cout<<"Usuwam MockFigure"<<std::endl;};
 };
 
-//double MockFigura:: Pole (){}
-
-//double MockFigura:: Obwod(){}
-	
-//void MockFigura::dodajFigure(Figura *wsk){};*/
-
-/*Figura *fig = new Prostokat(2.5, 2.9);
-Figura *fig2 = new Kwadrat(3.0);
-Figura * tr = new Trojkat(3, 4, 5);*/
-
 TEST(ImageTest, obliczPola) {
-MockFigura figura;
+MockFigura mock_figura1,mock_figura2,mock_figura3;
+Image image;
+EXPECT_CALL(mock_figura1, Pole()).WillOnce(Return(10));
+EXPECT_CALL(mock_figura2, Pole()).WillOnce(Return(20));
+EXPECT_CALL(mock_figura3, Pole()).WillOnce(Return(30));
+image.dodajFigure(&mock_figura1);
+image.dodajFigure(&mock_figura2);
+image.dodajFigure(&mock_figura3);
 
-/*figura.dodajFigure(fig);
-figura.dodajFigure(fig2);
-figura.dodajFigure(tr);*/
-//EXPECT_CALL(kwadrat, dodajFigure());
-EXPECT_CALL(figura, obliczPola())
-	.WillOnce(Return(50));
-	//.WillOnce(Return(50));	
-//figura.obliczPola();	
-ASSERT_EQ(50,figura.obliczPola());
+EXPECT_EQ(60,image.obliczPola());
       }
 
    
