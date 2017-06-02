@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.0.2)
+project (a.out)
+add_executable(a.out Main.cpp Figury.cpp )
+# UT
+# to enable please use 
+# cmake -Dtest=ON
+
+if (test)
+	enable_testing()
+	find_package(GTest REQUIRED)
+	include_directories(${GTEST_INCLUDE_DIRS})
+	add_executable(runTests Main_test.cpp)
+	target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
+endif()
